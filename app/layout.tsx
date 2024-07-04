@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google'
 import { cn } from '@/lib/utils'
 import './globals.css'
 import { PropsWithChildren } from 'react';
+import { ThemeProvider } from '@/components/theme-provider';
 
 const fontHeading = Inter({
   subsets: ['latin'],
@@ -34,8 +35,16 @@ export default function Layout({ children }: PropsWithChildren<{}>) {
           fontBody.variable
         )}
       >
-        {children}
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
       </body>
+      
     </html>
   )
 }

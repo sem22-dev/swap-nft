@@ -1,22 +1,15 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { JSX, SVGProps } from "react";
-import Link from 'next/link';
+import Link from "next/link";
+import { BellIcon, ClipboardIcon, HomeIcon, MenuIcon, MessageSquare, MoonIcon, SettingsIcon, StarIcon } from "lucide-react";
 
-import {
-  ThirdwebProvider,
-  ConnectButton,
-} from "thirdweb/react";
-import {
-  createWallet,
-  walletConnect,
-  inAppWallet,
-} from "thirdweb/wallets";
+import { ThirdwebProvider, ConnectButton } from "thirdweb/react";
+import { createWallet, walletConnect, inAppWallet } from "thirdweb/wallets";
 import { createThirdwebClient } from "thirdweb";
 
 const client = createThirdwebClient({
@@ -29,58 +22,57 @@ const wallets = [
   walletConnect(),
   inAppWallet({
     auth: {
-      options: [
-        "email",
-        "google",
-        "apple",
-        "facebook",
-        "phone",
-      ],
+      options: ["email", "google", "apple", "facebook", "phone"],
     },
   }),
 ];
 
-
 export function Component() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
-  
+
+  const togglePopup = () => {
+    setIsPopupOpen(!isPopupOpen);
+  };
+
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+  };
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className={`flex min-h-screen ${isDarkMode ? 'dark bg-[#1F2937] text-white' : 'light'}`}>
       {isSidebarOpen && (
-        <aside className="flex flex-col items-center w-20 py-6 bg-white border-r">
+        <aside className="flex flex-col items-center w-20 py-6 border-r ">
           <MenuIcon className="w-6 h-6 mb-6" onClick={toggleSidebar} />
           <HomeIcon className="w-6 h-6 mb-6" />
-          <ClipboardIcon className="w-6 h-6 mb-6" />
+          <Link href={"/portfolio"}>
+            <ClipboardIcon className="w-6 h-6 mb-6" />
+          </Link>
           <SettingsIcon className="w-6 h-6 mb-6" />
         </aside>
       )}
-    
+
       <main className="flex-1 p-6">
         <header className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-4">
             {!isSidebarOpen && <MenuIcon className="w-6 h-6 mb-6" onClick={toggleSidebar} />}
           </div>
           <div className="flex items-center space-x-4">
-            <Button variant="ghost" size="icon">
+            <MessageSquare onClick={togglePopup} className="cursor-pointer" />
+            <Button variant="ghost" size="icon" onClick={toggleTheme}>
               <MoonIcon className="w-5 h-5" />
             </Button>
             <Button variant="ghost" size="icon">
-              
               <BellIcon className="w-5 h-5" />
             </Button>
             <ThirdwebProvider>
-      <ConnectButton
-        client={client}
-        wallets={wallets}
-        theme={"dark"}
-        connectModal={{ size: "wide" }}
-      />
-    </ThirdwebProvider>
+              <ConnectButton client={client} wallets={wallets} theme={"dark"} connectModal={{ size: "wide" }} />
+            </ThirdwebProvider>
           </div>
         </header>
         <section className="grid grid-cols-1 gap-6 lg:grid-cols-3">
@@ -92,7 +84,7 @@ export function Component() {
                   <h3 className="text-2xl font-bold">45</h3>
                   <p className="text-sm text-gray-500">In Progress</p>
                 </div>
-                
+
                 <div className="text-center">
                   <h3 className="text-2xl font-bold">69</h3>
                   <p className="text-sm text-gray-500">Total Collections</p>
@@ -203,217 +195,44 @@ export function Component() {
               </Card>
             </div>
           </div>
-          <div>
-            <h2 className="text-xl font-bold">Client Offers</h2>
-            <div className="mt-4 space-y-4">
-              <Card className="flex items-center p-4">
+        </section>
+      </main>
+
+      {isPopupOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg lg:w1/2 dark:bg-gray-800 dark:text-white">
+            <h3 className="text-lg font-semibold mb-4">Client Offers</h3>
+            <div className="space-y-4">
+              <div className="flex items-center">
                 <Avatar>
                   <AvatarImage src="/placeholder-user.jpg" />
                   <AvatarFallback>ST</AvatarFallback>
                 </Avatar>
                 <div className="ml-4">
                   <h3 className="text-sm font-semibold">Stephanie</h3>
-                  <p className="text-sm text-gray-500">
-                    I got to see your nft. It was quite good. 🐱 can i buy it for 0.1 ETH
-                  </p>
-                  <p className="text-xs text-gray-400">July, 4th</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-300">I got to see your nft. It was quite good. 🐱 can i buy it for 0.1 ETH</p>
+                  <p className="text-xs text-gray-400 dark:text-gray-500">July, 4th</p>
                 </div>
-                <StarIcon className="ml-auto w-5 h-5 text-gray-400" />
-              </Card>
-              <Card className="flex items-center p-4">
+              </div>
+              <div className="flex items-center">
                 <Avatar>
                   <AvatarImage src="/placeholder-user.jpg" />
-                  <AvatarFallback>MK</AvatarFallback>
+                  <AvatarFallback>+</AvatarFallback>
                 </Avatar>
                 <div className="ml-4">
-                  <h3 className="text-sm font-semibold">Mark</h3>
-                  <p className="text-sm text-gray-500">Hey, can tell me more about this nft, any nego?</p>
-                  <p className="text-xs text-gray-400">July, 4th</p>
+                  <h3 className="text-sm font-semibold">Thomas</h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-300">I would love to add it to my collection</p>
+                  <p className="text-xs text-gray-400 dark:text-gray-500">July, 3rd</p>
                 </div>
-                <StarIcon className="ml-auto w-5 h-5 text-gray-400" />
-              </Card>
-              <Card className="flex items-center p-4">
-                <Avatar>
-                  <AvatarImage src="/placeholder-user.jpg" />
-                  <AvatarFallback>DV</AvatarFallback>
-                </Avatar>
-                <div className="ml-4">
-                  <h3 className="text-sm font-semibold">David</h3>
-                  <p className="text-sm text-gray-500">Awesome! 🐱 I like it. can i buy it for 0.1 ETH</p>
-                  <p className="text-xs text-gray-400">July, 4th</p>
-                </div>
-                <StarIcon className="ml-auto w-5 h-5 text-gray-400" />
-              </Card>
+              </div>
             </div>
+            <button onClick={togglePopup} className="mt-4 p-2 bg-blue-500 text-white rounded">
+              Close
+            </button>
           </div>
-        </section>
-      </main>
+        </div>
+      )}
     </div>
   );
 }
 
-function BellIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
-      <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
-    </svg>
-  )
-}
-
-
-function ClipboardIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
-      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
-    </svg>
-  )
-}
-
-
-function HomeIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-      <polyline points="9 22 9 12 15 12 15 22" />
-    </svg>
-  )
-}
-
-
-function MenuIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <line x1="4" x2="20" y1="12" y2="12" />
-      <line x1="4" x2="20" y1="6" y2="6" />
-      <line x1="4" x2="20" y1="18" y2="18" />
-    </svg>
-  )
-}
-
-
-function MoonIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
-    </svg>
-  )
-}
-
-
-function SearchIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <circle cx="11" cy="11" r="8" />
-      <path d="m21 21-4.3-4.3" />
-    </svg>
-  )
-}
-
-
-function SettingsIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
-      <circle cx="12" cy="12" r="3" />
-    </svg>
-  )
-}
-
-
-function StarIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-    </svg>
-  )
-}

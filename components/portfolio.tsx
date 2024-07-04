@@ -23,7 +23,7 @@ To read more about using these font, please visit the Next.js documentation:
 - App Directory: https://nextjs.org/docs/app/building-your-application/optimizing/fonts
 - Pages Directory: https://nextjs.org/docs/pages/building-your-application/optimizing/fonts
 **/
-export function portfolio() {
+export function Portfolio() {
   return (
     <div className="container max-w-6xl mx-auto px-4 py-12">
       <h1 className="text-3xl font-bold mb-8">My NFT Portfolio</h1>
