@@ -6,6 +6,8 @@ import { Progress } from "@/components/ui/progress";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { JSX, SVGProps } from "react";
+import Link from 'next/link';
+
 import {
   ThirdwebProvider,
   ConnectButton,
@@ -90,13 +92,14 @@ export function Component() {
                   <h3 className="text-2xl font-bold">45</h3>
                   <p className="text-sm text-gray-500">In Progress</p>
                 </div>
-                <div className="text-center">
-                  <h3 className="text-2xl font-bold">24</h3>
-                  <p className="text-sm text-gray-500">Upcoming</p>
-                </div>
+                
                 <div className="text-center">
                   <h3 className="text-2xl font-bold">69</h3>
                   <p className="text-sm text-gray-500">Total Collections</p>
+                </div>
+                <div className="text-center">
+                  <h3 className="text-2xl font-bold">24</h3>
+                  <p className="text-sm text-gray-500">Upcoming</p>
                 </div>
               </div>
             </div>
@@ -122,6 +125,7 @@ export function Component() {
                   <CardTitle>Testing</CardTitle>
                   <CardDescription>Prototyping</CardDescription>
                 </CardHeader>
+
                 <CardContent>
                   <Progress value={50} className="mb-2" />
                   <div className="flex items-center justify-between">
