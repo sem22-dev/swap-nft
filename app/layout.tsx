@@ -4,8 +4,8 @@ import { Inter } from 'next/font/google'
 import { cn } from '@/lib/utils'
 import './globals.css'
 import { PropsWithChildren } from 'react';
-import { ThemeProvider } from '@/components/theme-provider';
-
+import { Providers } from '@/components/shared/Providers';
+import { Navbar } from '@/components/shared/Navbar';
 const fontHeading = Inter({
   subsets: ['latin'],
   display: 'swap',
@@ -28,22 +28,12 @@ export default function Layout({ children }: PropsWithChildren<{}>) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body 
-        className={cn(
-          'antialiased',
-          fontHeading.variable,
-          fontBody.variable
-        )}
-      >
-        <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-          </ThemeProvider>
-      </body>
+     <body>
+     <Providers>
+          <Navbar />
+          {children}
+        </Providers>
+     </body>
       
     </html>
   )

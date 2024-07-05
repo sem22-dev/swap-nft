@@ -30,7 +30,7 @@ const wallets = [
 export function Component() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -40,17 +40,13 @@ export function Component() {
     setIsPopupOpen(!isPopupOpen);
   };
 
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-  };
-
   return (
-    <div className={`flex min-h-screen ${isDarkMode ? 'dark bg-[#1F2937] text-white' : 'light'}`}>
+    <div className={`flex min-h-screen`}>
       {isSidebarOpen && (
         <aside className="flex flex-col items-center w-20 py-6 border-r ">
           <MenuIcon className="w-6 h-6 mb-6" onClick={toggleSidebar} />
           <HomeIcon className="w-6 h-6 mb-6" />
-          <Link href={"/portfolio"}>
+          <Link href={"/nftmarket"}>
             <ClipboardIcon className="w-6 h-6 mb-6" />
           </Link>
           <SettingsIcon className="w-6 h-6 mb-6" />
@@ -61,18 +57,6 @@ export function Component() {
         <header className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-4">
             {!isSidebarOpen && <MenuIcon className="w-6 h-6 mb-6" onClick={toggleSidebar} />}
-          </div>
-          <div className="flex items-center space-x-4">
-            <MessageSquare onClick={togglePopup} className="cursor-pointer" />
-            <Button variant="ghost" size="icon" onClick={toggleTheme}>
-              <MoonIcon className="w-5 h-5" />
-            </Button>
-            <Button variant="ghost" size="icon">
-              <BellIcon className="w-5 h-5" />
-            </Button>
-            <ThirdwebProvider>
-              <ConnectButton client={client} wallets={wallets} theme={"dark"} connectModal={{ size: "wide" }} />
-            </ThirdwebProvider>
           </div>
         </header>
         <section className="grid grid-cols-1 gap-6 lg:grid-cols-3">
