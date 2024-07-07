@@ -6,6 +6,7 @@ import './globals.css'
 import { PropsWithChildren } from 'react';
 import { Providers } from '@/components/shared/Providers';
 import { Navbar } from '@/components/shared/Navbar';
+import { Toaster } from '@/nft-minter/components/ui/Toaster';
 const fontHeading = Inter({
   subsets: ['latin'],
   display: 'swap',
@@ -29,10 +30,14 @@ export default function Layout({ children }: PropsWithChildren<{}>) {
         <link rel="icon" href="/favicon.ico" />
       </head>
      <body>
-     <Providers>
-          <Navbar />
-          {children}
-        </Providers>
+     
+            <Providers>
+              <Toaster />
+              <Navbar />
+              {children}
+
+            </Providers>
+   
      </body>
       
     </html>

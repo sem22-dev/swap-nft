@@ -82,16 +82,13 @@ export function Component() {
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               <Card className="bg-orange-100">
                 <CardHeader>
-                  <CardTitle>Taiko NFTs</CardTitle>
+                  <CardTitle>Test</CardTitle>
                   <CardDescription>Minting now</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <Progress value={60} className="mb-2" />
-                  <div className="flex items-center justify-between">
-                    <Avatar>
-                      <AvatarImage src="/placeholder-user.jpg" />
-                      <AvatarFallback>+</AvatarFallback>
-                    </Avatar>
+                  <Progress value={60} className="mb-4" />
+                  <div className=" flex justify-between">
+                    <Link href={'/nft-mint'} className="border bg-blue-500 rounded-md font-semibold text-lg text-white py-2 px-4">Mint now</Link>
                     <Badge variant="secondary">2 Days Left</Badge>
                   </div>
                 </CardContent>
