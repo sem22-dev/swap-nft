@@ -6,7 +6,7 @@ import './globals.css'
 import { PropsWithChildren } from 'react';
 import { Providers } from '@/components/shared/Providers';
 import { Navbar } from '@/components/shared/Navbar';
-import { Toaster } from '@/nft-minter/components/ui/Toaster';
+import { Toaster } from '@/components/nft-minter/components/ui/Toaster';
 const fontHeading = Inter({
   subsets: ['latin'],
   display: 'swap',

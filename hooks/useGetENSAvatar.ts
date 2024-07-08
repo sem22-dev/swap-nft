@@ -1,5 +1,5 @@
 import { client } from "@/consts/client";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+import { QueryOptions, useQuery } from "@tanstack/react-query";
 import { resolveAvatar, resolveName } from "thirdweb/extensions/ens";
 
 // Get ENS name from a wallet address
@@ -9,7 +9,7 @@ export function useGetENSAvatar({
   ensName: string | undefined | null;
 }) {
   return useQuery(
-    queryOptions({
+   {
       queryKey: ["ensAvatar", ensName || "n/a"] as const,
       queryFn: async () => {
         if (!client) {
@@ -19,6 +19,6 @@ export function useGetENSAvatar({
         return resolveAvatar({ client, name: ensName });
       },
       enabled: !!ensName,
-    })
+    }
   );
 }

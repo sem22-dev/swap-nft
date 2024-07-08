@@ -1,9 +1,10 @@
 "use client"
 
-import Root from "@/nft-minter/main"
+import Home from "@/components/nft-minter/App"
+// import Root from "@/components/nft-minter/main"
 
 export default function Nftmint() {
     return(
-        <Root />
+        <Home />
     )
 }

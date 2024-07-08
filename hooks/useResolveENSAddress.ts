@@ -1,5 +1,5 @@
 import { client } from "@/consts/client";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+import {  useQuery } from "@tanstack/react-query";
 import { resolveAddress } from "thirdweb/extensions/ens";
 
 // Get ENS name from a wallet address
@@ -11,7 +11,7 @@ export function useResolveENSAddress({
   enabled: boolean;
 }) {
   return useQuery(
-    queryOptions({
+    {
       queryKey: ["ensText", text || "ensText"] as const,
       queryFn: async () => {
         if (!client) {
@@ -20,6 +20,6 @@ export function useResolveENSAddress({
         return resolveAddress({ client, name: text });
       },
       enabled,
-    })
+    }
   );
 }
